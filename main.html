@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mixue - Thiên đường kem tươi & trà sữa</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #ff3c3c;
+            --secondary-color: #ffecec;
+            --dark-color: #333;
+            --light-color: #fff;
+            --text-color-dark: #444;
+            --text-color-light: #f5f5f5;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: "Poppins", sans-serif; }
+        html { scroll-behavior: smooth; }
+        body { background: var(--light-color); color: var(--dark-color); line-height: 1.6; }
+
+        /* NAVBAR */
+        nav {
+            position: fixed; top: 0; left: 0; width: 100%; background: var(--light-color);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1); display: flex; justify-content: space-between;
+            align-items: center; padding: 15px 40px; z-index: 1000;
+        }
+        nav .logo { display: flex; align-items: center; gap: 10px; }
+        nav .logo img { width: 45px; transition: transform 0.3s ease-in-out; }
+        nav .logo img:hover { transform: scale(1.1) rotate(5deg); }
+        nav .logo span { font-size: 24px; font-weight: 700; color: var(--primary-color); }
+        nav ul { list-style: none; display: flex; gap: 30px; }
+        nav ul li a {
+            text-decoration: none; color: var(--dark-color); font-weight: 600;
+            transition: color .3s, transform .3s; position: relative;
+        }
+        nav ul li a::after {
+            content: ''; position: absolute; bottom: -5px; left: 0; width: 0;
+            height: 3px; background-color: var(--primary-color); transition: width .3s;
+        }
+        nav ul li a:hover { color: var(--primary-color); }
+        nav ul li a:hover::after { width: 100%; }
+
+        /* HERO */
+        .hero {
+            height: 100vh;
+            /* Thay đổi hình nền và lớp phủ màu để phù hợp với màu đỏ của Mixue */
+            background: linear-gradient(rgba(255, 60, 60, 0.7), rgba(255, 60, 60, 0.7)), url("https://images.unsplash.com/photo-1627964406385-2e656d021c17?auto=format&fit=crop&w=1400&q=80") no-repeat center/cover;
+            display: flex; flex-direction: column; justify-content: center;
+            align-items: center; color: var(--light-color); text-align: center; padding: 0 20px;
+        }
+        .hero h1 { font-size: 64px; font-weight: 700; margin-bottom: 10px; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
+        .hero p { font-size: 24px; margin-bottom: 40px; text-shadow: 1px 1px 3px rgba(0,0,0,0.5); }
+        .hero-buttons { display: flex; gap: 20px; }
+        .btn {
+            display: inline-block; padding: 14px 32px; font-weight: 600; border-radius: 30px;
+            text-decoration: none; transition: all .3s;
+        }
+        .btn-primary { background: var(--primary-color); color: var(--light-color); }
+        .btn-primary:hover { background: #e63946; transform: translateY(-3px); box-shadow: 0 4px 8px rgba(0,0,0,0.2); }
+        .btn-secondary { background: var(--light-color); color: var(--primary-color); border: 2px solid var(--primary-color); }
+        .btn-secondary:hover { background: var(--secondary-color); transform: translateY(-3px); box-shadow: 0 4px 8px rgba(0,0,0,0.2); }
+
+        /* SECTION STYLES */
+        section { padding: 80px 20px; }
+        h2.section-title {
+            font-size: 44px; color: var(--primary-color); text-align: center;
+            margin-bottom: 50px; position: relative; font-weight: 700;
+        }
+        h2.section-title::after {
+            content: ""; width: 80px; height: 5px; background: var(--primary-color);
+            position: absolute; bottom: -15px; left: 50%; transform: translateX(-50%);
+            border-radius: 3px;
+        }
+        
+        /* MENU */
+        .menu-category-title {
+            text-align: center; font-size: 32px; color: var(--dark-color);
+            margin-top: 60px; margin-bottom: 30px; font-weight: 600;
+        }
+        .menu-items {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px; max-width: 1200px; margin: 0 auto;
+        }
+        .card {
+            background: var(--light-color); border-radius: 16px; overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1); transition: transform .4s, box-shadow .4s;
+            position: relative;
+        }
+        .card:hover { transform: translateY(-12px); box-shadow: 0 12px 30px rgba(0,0,0,0.15); }
+        .card img { width: 100%; height: 250px; object-fit: cover; }
+        .card-content { padding: 20px; text-align: center; }
+        .card-content h3 { color: var(--primary-color); font-size: 22px; margin-bottom: 8px; }
+        .card-content p { color: var(--text-color-dark); font-size: 15px; }
+        
+        /* ABOUT */
+        .about { background: var(--secondary-color); text-align: center; }
+        .about p { max-width: 800px; margin: 0 auto; font-size: 18px; color: var(--text-color-dark); }
+        
+        /* TESTIMONIALS */
+        .testimonials { background: var(--light-color); text-align: center; }
+        .testimonial-container { display: flex; gap: 30px; justify-content: center; flex-wrap: wrap; }
+        .testimonial {
+            background: var(--secondary-color); padding: 30px; border-radius: 16px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1); max-width: 350px; text-align: left;
+            position: relative;
+        }
+        .testimonial i {
+            font-size: 40px; color: var(--primary-color); position: absolute;
+            top: 15px; right: 20px; opacity: 0.2;
+        }
+        .testimonial p { font-style: italic; color: var(--text-color-dark); margin-bottom: 12px; }
+        .testimonial h4 { color: var(--primary-color); font-weight: 600; font-size: 18px; }
+
+        /* FOOTER */
+        footer { background: var(--primary-color); color: var(--light-color); text-align: center; padding: 40px 20px; }
+        footer p { margin-bottom: 15px; }
+        footer .social a {
+            color: var(--light-color); margin: 0 12px; font-size: 22px;
+            text-decoration: none; transition: color .3s, transform .3s;
+        }
+        footer .social a:hover { color: var(--secondary-color); transform: translateY(-5px); }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            nav { padding: 15px 20px; }
+            nav ul { gap: 15px; }
+            .hero h1 { font-size: 48px; }
+            .hero p { font-size: 18px; }
+            .hero-buttons { flex-direction: column; }
+            h2.section-title { font-size: 36px; }
+            .menu-category-title { font-size: 28px; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo">
+            <img src="https://dash.tascomall.com/wp-content/uploads/2023/10/mixue.png" alt="Mixue Logo">
+            <span><b>Mixue</b></span>
+        </div>
+        <ul>
+            <li><a href="#hero">Trang chủ</a></li>
+            <li><a href="#menu">Menu</a></li>
+            <li><a href="#about">Về Mixue</a></li>
+            <li><a href="#reviews">Đánh giá</a></li>
+        </ul>
+    </nav>
+
+    <header id="hero" class="hero" data-aos="fade-up">
+        <h1>Chào mừng đến với Mixue</h1>
+        <p>Thiên đường kem tươi & trà sữa hạnh phúc - Giá chỉ từ 10K</p>
+        <div class="hero-buttons">
+            <a href="#menu" class="btn btn-primary">Khám phá Menu</a>
+            <a href="#" class="btn btn-secondary">Tìm cửa hàng gần bạn</a>
+        </div>
+    </header>
+
+    <section id="menu">
+        <h2 class="section-title">Menu Mixue</h2>
+
+        <h3 class="menu-category-title">Kem & Smoothies</h3>
+        <div class="menu-items">
+            <div class="card" data-aos="zoom-in">
+                <img src="https://i.pinimg.com/736x/e2/e7/9f/e2e79ff9c88c266530ef9e68cec7ca2a.jpg" alt="Kem ốc quế">
+                <div class="card-content">
+                    <h3>Kem Ốc Quế</h3>
+                    <p>Kem mềm mịn, tan chảy trên đầu lưỡi. Món kem quốc dân, ai cũng mê.</p>
+                </div>
+            </div>
+            <div class="card" data-aos="zoom-in" data-aos-delay="100">
+                <img src="https://mixuevietnam.com/wp-content/uploads/2024/07/Super-Sundae-Dau-Tay-1200x1200.webp" alt="Super Sundae Dâu Tây">
+                <div class="card-content">
+                    <h3>Super Sundae Dâu Tây</h3>
+                    <p>Tươi mát, thơm béo, kết hợp cùng kem mềm mịn.</p>
+                </div>
+            </div>
+            <div class="card" data-aos="zoom-in" data-aos-delay="200">
+                <img src="https://mixueviet.com/wp-content/uploads/2024/06/Kem-Chocolate-Sundae-Mixue-Moi.png" alt="Đá tuyết dâu tây">
+                <div class="card-content">
+                    <h3>Super Sundae Socola</h3>
+                    <p>Đậm vị chocolate, ngọt ngào tan chảy</p>
+                </div>
+            </div>
+        </div>
+
+        <h3 class="menu-category-title">Trà đào bigsize</h3>
+        <div class="menu-items">
+            <div class="card" data-aos="zoom-in">
+                <img src="https://mixuevietnam.com/wp-content/uploads/2024/07/Tra-Dao-BigSize.jpg.webp" alt="Hồng trà chanh">
+                <div class="card-content">
+                    <h3>Hồng Trà Chanh</h3>
+                    <p>Thức uống truyền thống, ngọt thơm nồng vị trà đào.</p>
+                </div>
+            </div>
+            <div class="card" data-aos="zoom-in" data-aos-delay="100">
+                <img src="https://mixuevietnam.com/wp-content/uploads/2024/07/Super-Sundae-Tran-Chau-Duong-Den.jpg.webp" alt="Trà sữa trân châu">
+                <div class="card-content">
+                    <h3>Sữa tươi trân châu đường đen</h3>
+                    <p>Trà sữa đậm vị, kết hợp cùng trân châu dai giòn, món must-try!</p>
+                </div>
+            </div>
+            <div class="card" data-aos="zoom-in" data-aos-delay="200">
+                <img src="https://mixuevietnam.com/wp-content/uploads/2024/07/sua-kem-lac-dao-1200x1202.jpg" alt="Trà bích đào">
+                <div class="card-content">
+                    <h3>Sữa kem lắc đào</h3>
+                    <p>Vị thanh thoát, ngọt ngào của đào, giải nhiệt mùa hè hiệu quả.</p>
+                </div>
+            </div>
+            <div class="card" data-aos="zoom-in" data-aos-delay="300">
+                <img src="https://mixuevietnam.com/wp-content/uploads/2024/07/Tra-Sua-3Q-500x500.jpg" alt="Sữa tươi kem phô mai">
+                <div class="card-content">
+                    <h3>Trà sữa bá vương</h3>
+                    <p>Vị sữa tươi thơm ngậy, hòa quyện với lớp kem béo ngậy.</p>
+                </div>
+            </div>
+            <div class="card" data-aos="zoom-in" data-aos-delay="400">
+                <img src="data:image/jpeg;base64,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" alt="Trà dâu tây">
+                <div class="card-content">
+                    <h3>Trà sữa socola</h3>
+                    <p>Trà sữa socola thơm ngon ,đậm vị</p>
+                </div>
+            </div>
+            <div class="card" data-aos="zoom-in" data-aos-delay="500">
+                <img src="data:image/jpeg;base64,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" alt="Matcha đá xay">
+                <div class="card-content">
+                    <h3>Sữa thạch dâu tây</h3>
+                    <p>Vị dâu tây Nhật Bản thanh nhẹ, kết hợp với đá xay mát lạnh.</p>
+                </div>
+            </div>
+        </div>
+        
+        <h3 class="menu-category-title">Topping & Món Ăn Vặt</h3>
+        <div class="menu-items">
+            <div class="card" data-aos="zoom-in">
+                <img src="data:image/jpeg;base64,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" alt="Trân châu">
+                <div class="card-content">
+                    <h3>Trân Châu Đen</h3>
+                    <p>Dai, giòn sần sật, không thể thiếu trong mỗi ly trà sữa.</p>
+                </div>
+            </div>
+            <div class="card" data-aos="zoom-in" data-aos-delay="100">
+                <img src="https://bizweb.dktcdn.net/100/421/036/files/cach-lam-pudding-trung-cho-tra-sua-uong-la-ghien-3.jpg?v=1617089283710" alt="Pudding trứng">
+                <div class="card-content">
+                    <h3>Pudding Trứng</h3>
+                    <p>Mềm, béo và thơm ngon, làm tăng thêm hương vị cho đồ uống.</p>
+                </div>
+            </div>
+            <div class="card" data-aos="zoom-in" data-aos-delay="200">
+                <img src="https://eggyolk.vn/wp-content/uploads/2025/03/Cach-lam-kem-xoai-voi-nuoc-cot-dua.jpg" alt="Kem vị xoài">
+                <div class="card-content">
+                    <h3>Kem Vị Xoài</h3>
+                    <p>Kem tươi vị xoài độc đáo, thơm ngon, thích hợp cho những ai yêu thích trái cây.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="about" data-aos="fade-up">
+        <h2 class="section-title">Về Mixue</h2>
+        <p>
+            Mixue Ice Cream & Tea bắt đầu từ năm 1997 tại Trung Quốc, nay đã trở thành thương hiệu kem tươi và trà sữa hàng đầu thế giới với hơn 20.000 cửa hàng. Sứ mệnh của chúng tôi là mang đến những món kem tươi và trà sữa chất lượng cao với mức giá phải chăng, giúp mọi người dễ dàng thưởng thức và cảm nhận được niềm vui, hạnh phúc.
+        </p>
+    </section>
+
+    <section id="reviews" class="testimonials">
+        <h2 class="section-title">Khách hàng nói gì?</h2>
+        <div class="testimonial-container">
+            <div class="testimonial" data-aos="fade-right">
+                <i class="fas fa-quote-left"></i>
+                <p>"Kem Mixue ngon tuyệt, ăn một lần là ghiền! Giá lại quá rẻ so với chất lượng."</p>
+                <h4>- Mai Anh</h4>
+            </div>
+            <div class="testimonial" data-aos="fade-up">
+                <i class="fas fa-quote-left"></i>
+                <p>"Trà sữa rất vừa miệng, không quá ngọt. Topping trân châu dai ngon cực kì."</p>
+                <h4>- Tuấn Kiệt</h4>
+            </div>
+            <div class="testimonial" data-aos="fade-left">
+                <i class="fas fa-quote-left"></i>
+                <p>"Không gian cửa hàng dễ thương, nhân viên thân thiện. Sẽ ủng hộ Mixue dài dài!"</p>
+                <h4>- Lan Hương</h4>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2025 Mixue Việt Nam. All Rights Reserved.</p>
+        <div class="social">
+            <a href="https://www.facebook.com/mixuevietnam" target="_blank"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://www.instagram.com/mixue_vietnam/" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.tiktok.com/@mixuevietnam" target="_blank"><i class="fab fa-tiktok"></i></a>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 1000,
+            once: true,
+        });
+    </script>
+</body>
+</html>
